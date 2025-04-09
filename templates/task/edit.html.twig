@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Tarefa{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{{ path('app_home_index') }}">Home</a>
+    <a href="{{ path('task_index') }}">Tasks</a>
+    <a href="{{ path('show_task', {id: task.id}) }}">{{ task.name }}</a>
+    Editar
+{% endblock %}
+
+{% block body %}
+    <h1>Editar Tarefa</h1>
+
+    {% if task.cancelled %}
+        <p style="color: red;">Esta tarefa está cancelada e não pode ser editada.</p>
+    {% else %}
+        {{ include('task/_form.html.twig', { form: form }) }}
+    {% endif %}
+
+    <a href="{{ path('show_task', { id: task.id }) }}" class="button">Voltar</a>
+{% endblock %}

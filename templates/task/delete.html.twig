@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% block breadcrumbs %}
+    <a href="{{ path('app_home_index') }}">Home</a>
+    <a href="{{ path('task_index') }}">Tasks</a>
+{% endblock %}
+
+<h1>Delete Task</h1>
+
+<p>Are you sure?</p>
+
+<form method="post">
+
+    <button>Yes</button>
+
+    <a href="{{ path('show_task', {'id': id}) }}">No</a>
+
+</form>
+
+    <a href="{{ path('show_task', { id: task.id }) }}" class="button">Voltar</a>
+    
+{% endblock %}

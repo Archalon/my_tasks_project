@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nova Tarefa{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{{ path('app_home_index') }}">Home</a>
+    <a href="{{ path('task_index') }}">Tasks</a>
+    Nova
+</nav>
+{% endblock %}
+
+{% block body %}
+    <h1>Nova Tarefa</h1>
+
+    {{ include('task/_form.html.twig', { form: form }) }}
+
+    <a href="{{ path('task_index') }}" class="button">Voltar</a>
+{% endblock %}

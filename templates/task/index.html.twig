@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de Tarefas{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{{ path('app_home_index') }}">Home</a>
+    <a href="{{ path('task_index') }}">Tasks</a>
+{% endblock %}
+
+{% block body %}
+    <h1>Tarefas</h1>
+
+    <a href="{{ path('new_task') }}" class="button">Nova Tarefa</a>
+
+    {{ form_start(filterForm, { method: 'get' }) }}
+        {{ form_row(filterForm.title) }}
+        {{ form_row(filterForm.status) }}
+        {{ form_row(filterForm.duedate) }}
+        <button type="submit" class="button">Pesquisar</button>
+    {{ form_end(filterForm) }}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.computedStatus }}</td>
+                    <td>
+                        {% if task.cancelled %}
+                            <span style="color: red;">Cancelada</span> |
+                            <a href="{{ path('reactivate_task', { id: task.id }) }}">Reativar</a>
+                        {% else %}
+                            <a href="{{ path('show_task', { id: task.id }) }}">Ver</a> |
+                            <a href="{{ path('edit_task', { id: task.id }) }}">Editar</a> |
+                            <a href="{{ path('cancel_task', { id: task.id }) }}" style="color: red;">Cancelar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Nenhuma tarefa encontrada.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

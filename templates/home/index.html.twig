@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Welcome</h1>
+
+{% block breadcrumbs %}
+    <a href="{{ path('app_home_index') }}">Home</a>
+    <a href="{{ path('task_index') }}">Tasks</a>
+{% endblock %}
+
+{% endblock %}

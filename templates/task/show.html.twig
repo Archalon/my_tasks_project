@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{{ path('app_home_index') }}">Home</a>
+    <a href="{{ path('task_index') }}">Tasks</a>
+    {{ task.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Task</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ task.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ task.description }}</td>
+            </tr>
+            <tr>
+                <th>Deadline</th>
+                <td>{{ task.deadline|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ task.computedStatus }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('edit_task', {'id': task.id}) }}">Edit</a>
+    <a href="{{ path('delete_task', {'id': task.id}) }}">Delete</a>
+
+    {% if not task.cancelled %}
+        <form method="post" action="{{ path('cancel_task', {'id': task.id}) }}" style="margin-top: 1rem">
+            <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ task.id) }}">
+            <button type="submit">Cancel Task</button>
+        </form>
+    {% else %}
+        <form method="post" action="{{ path('uncancel_task', {'id': task.id}) }}" style="margin-top: 1rem">
+            <input type="hidden" name="_token" value="{{ csrf_token('uncancel' ~ task.id) }}">
+            <button type="submit">Uncancel Task</button>
+        </form>
+    {% endif %}
+
+    <a href="{{ path('task_index') }}" class="button">Voltar</a>
+ 
+{% endblock %}
